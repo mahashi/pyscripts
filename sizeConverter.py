@@ -3,15 +3,15 @@ from os import walk
 import sys
 
 def changeWidthAndHeight(files, width, height):
-    print(file)
-    f = open(file)
-    dom = parse(f)
-    f.close()
-    f = open(file, 'w')
-    dom.documentElement.setAttribute('width', width)
-    dom.documentElement.setAttribute('height', height)
-    dom.documentElement.writexml(f)
-    f.close()
+    for file in files:
+        f = open(file)
+        dom = parse(f)
+        f.close()
+        f = open(file, 'w')
+        dom.documentElement.setAttribute('width', width)
+        dom.documentElement.setAttribute('height', height)
+        dom.documentElement.writexml(f)
+        f.close()
 
 def getSvgFiles(dir):
     svgs = []
@@ -23,4 +23,4 @@ def getSvgFiles(dir):
     return svgs
 
 if __name__ == "__main__":
-    changeWidthAndHeight(getSvgFiles(sys.argv[0]), sys.arv[1], sys.argv[2])
+    changeWidthAndHeight(getSvgFiles(sys.argv[0]), sys.argv[1], sys.argv[2])
