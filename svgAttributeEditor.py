@@ -2,25 +2,28 @@ from xml.dom.minidom import parse
 from os import walk
 import sys
 
-def changeWidthAndHeight(files, width, height):
+def changeAttributes(files, dict):
     for file in files:
+    	print file
         f = open(file)
         dom = parse(f)
         f.close()
         f = open(file, 'w')
-        dom.documentElement.setAttribute('width', width)
-        dom.documentElement.setAttribute('height', height)
+        for key, value in dict.items():
+            dom.documentElement.setAttribute(key, value)
         dom.documentElement.writexml(f)
         f.close()
 
 def getSvgFiles(dir):
     svgs = []
-    for _, _, files in walk(dir):
+    for root, _, files in walk(dir):
         for file in files:
             if file.endswith('.svg'):
-                svgs[] = file;
-
+                svgs.append('{}/{}'.format(root, file))
+	print "files"
     return svgs
 
 if __name__ == "__main__":
-    changeWidthAndHeight(getSvgFiles(sys.argv[0]), sys.argv[1], sys.argv[2])
+	print "test"
+	print sys.argv
+	changeAttributes(getSvgFiles(sys.argv[1]), {sys.argv[2]: sys.argv[3]})
